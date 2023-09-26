@@ -8,6 +8,9 @@ function App() {
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0];
       setSelectedFile(file);
+      if (fileInputRef.current) {
+        fileInputRef.current.disabled = true;
+      }
     } else {
       setSelectedFile(null);
     }
@@ -16,6 +19,10 @@ function App() {
   const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setSelectedFile(null);
+
+    if (fileInputRef.current) {
+      fileInputRef.current.disabled = false;
+    }
 
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
@@ -55,7 +62,7 @@ function App() {
                   />
                 </svg>
               </div>
-              <div >
+              <div>
                 <div>{selectedFile.name}</div>
                 <div>{`${(selectedFile.size / 1024).toFixed(2)} KB`} </div>
               </div>
